@@ -8,22 +8,14 @@ import { BluePhoton, RedPhoton } from './particles/index'
 import { GreenPhoton } from "./particles/green_photon";
 
 const blueBase = new Vector3(40, 12, 6)
-let bluePhoton: BluePhoton[] = new Array()
-for (let i = 0; i < 15; i++) {
-  bluePhoton.push(new BluePhoton(Vector3.Zero()))
-}
+let bluePhoton: BluePhoton[] = BluePhoton.buildInitArray(15)
 
 const redBase = new Vector3(40, 12, 7.5)
-let redPhoton: RedPhoton[] = new Array()
-for (let i = 0; i < 15; i++) {
-  redPhoton.push(new RedPhoton(Vector3.Zero()))
-}
+let redPhoton: RedPhoton[] = RedPhoton.buildInitArray(15)
+
 
 const greenBase = new Vector3(40, 12, 9)
-let greenPhoton: GreenPhoton[] = new Array()
-for (let i = 0; i < 15; i++) {
-  greenPhoton.push(new GreenPhoton(Vector3.Zero()))
-}
+let greenPhoton: GreenPhoton[] = GreenPhoton.buildInitArray(15)
 
 const dome = new Entity()
 dome.addComponent(new Transform({ position: new Vector3(25, 20, 7.5) }))
