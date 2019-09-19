@@ -1,4 +1,4 @@
-export class RedPhoton extends Entity implements Photon {
+export class RedPhoton extends Entity  {
   constructor(position: Vector3) {
     super()
     engine.addEntity(this)
