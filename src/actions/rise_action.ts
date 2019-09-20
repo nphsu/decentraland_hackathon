@@ -1,3 +1,4 @@
+/// <reference path="../config/index.ts" />
 import utils from "../../node_modules/decentraland-ecs-utils/index"
 import { ActionsSequenceSystem } from "../../node_modules/decentraland-ecs-utils/actionsSequenceSystem/actionsSequenceSystem";
 import { RedPhoton, GreenPhoton } from '../particles/index'
@@ -22,14 +23,15 @@ export class RiseAction implements ActionsSequenceSystem.IAction {
   redPhoton: RedPhoton[]
   greenPhoton: GreenPhoton[]
 
-  constructor(entity: Entity, position: Vector3, basePosition: Vector3) {
+  constructor(entity: Entity, position: Vector3, basePosition: Vector3, redPhoton: RedPhoton[]) {
     this.entity = entity
     this.position = position
     this.basePosition = basePosition
-    this.redBase = new Vector3(40, 12, 7.5)
-    this.greenBase = new Vector3(40, 12, 9)
-    this.redPhoton = RedPhoton.buildInitArray(15)
-    this.greenPhoton = GreenPhoton.buildInitArray(15)
+    this.redBase = Position.redPhotonBase
+    this.greenBase = Position.greenPhotonBase
+    // this.redPhoton = RedPhoton.buildInitArray(15)
+    this.redPhoton = redPhoton
+    // this.greenPhoton = GreenPhoton.buildInitArray(15)
   }
 
   //Method when action starts
@@ -47,48 +49,49 @@ export class RiseAction implements ActionsSequenceSystem.IAction {
   //Method to run at the end
   onFinish(): void {
     log('onFinish')
-    const redTrigger = new RedPhoton(this.redBase)
+    log(this.redPhoton)
+    const redTrigger = new RedPhoton(Position.redPhotonBase)
     log(redTrigger)
-    redTrigger.addComponent(
+    // redTrigger.addComponent(
       new OnClick(() => {
-        log('click red photon')
-        log(new Entity())
+        // log('click red photon')
+        // log(new Entity())
 
-        const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
-          .while(() => null)
-          .then(new MoveAction(this.redPhoton[0], new Vector3(1, 0, 1), this.basePosition))
-          .endWhile()
+        // const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
+        //   .while(() => null)
+        //   .then(new MoveAction(this.redPhoton[0], new Vector3(1, 0, 1), this.basePosition))
+        //   .endWhile()
 
-          //////////////////////////////////////////////
-          // A
-          //////////////////////////////////////////////
+        //   //////////////////////////////////////////////
+        //   // A
+        //   //////////////////////////////////////////////
 
-          .then(new MoveAction(this.redPhoton[0], new Vector3(2, 1, 1), this.basePosition))
-          .then(new MoveAction(this.redPhoton[1], new Vector3(2, 2, 1.5), this.basePosition))
-          .then(new MoveAction(this.redPhoton[2], new Vector3(2, 3, 2), this.basePosition))
-          .then(new MoveAction(this.redPhoton[3], new Vector3(2, 4, 2.5), this.basePosition))
-          .then(new MoveAction(this.redPhoton[4], new Vector3(2, 3, 2.5), this.basePosition))
-          .then(new MoveAction(this.redPhoton[5], new Vector3(2, 5, 3), this.basePosition))
-          .then(new MoveAction(this.redPhoton[6], new Vector3(2, 4, 3.5), this.basePosition))
-          .then(new MoveAction(this.redPhoton[7], new Vector3(2, 3, 3.5), this.basePosition))
-          .then(new MoveAction(this.redPhoton[8], new Vector3(2, 3, 4), this.basePosition))
-          .then(new MoveAction(this.redPhoton[9], new Vector3(2, 2, 4.5), this.basePosition))
-          .then(new MoveAction(this.redPhoton[10], new Vector3(2, 1, 5), this.basePosition))
-          .then(new MoveAction(this.redPhoton[11], new Vector3(0, 0, 0), this.basePosition))
-          .then(new MoveAction(this.redPhoton[12], new Vector3(0, 0, 0), this.basePosition))
-          .then(new MoveAction(this.redPhoton[13], new Vector3(0, 0, 0), this.basePosition))
-          .then(new MoveAction(this.redPhoton[14], new Vector3(0, 0, 0), this.basePosition))
-        engine.addSystem(new utils.ActionsSequenceSystem(sequence))
-        // TODO: [error] Why didn't I create an instance
-        // const literal = new Literal(new Vector3(40, 12, 7.5))
-        // log(literal)
+        //   .then(new MoveAction(this.redPhoton[0], new Vector3(2, 1, 1), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[1], new Vector3(2, 2, 1.5), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[2], new Vector3(2, 3, 2), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[3], new Vector3(2, 4, 2.5), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[4], new Vector3(2, 3, 2.5), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[5], new Vector3(2, 5, 3), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[6], new Vector3(2, 4, 3.5), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[7], new Vector3(2, 3, 3.5), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[8], new Vector3(2, 3, 4), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[9], new Vector3(2, 2, 4.5), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[10], new Vector3(2, 1, 5), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[11], new Vector3(0, 0, 0), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[12], new Vector3(0, 0, 0), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[13], new Vector3(0, 0, 0), this.basePosition))
+        //   .then(new MoveAction(this.redPhoton[14], new Vector3(0, 0, 0), this.basePosition))
+        // engine.addSystem(new utils.ActionsSequenceSystem(sequence))
+    //     // TODO: [error] Why didn't I create an instance
+    //     // const literal = new Literal(new Vector3(40, 12, 7.5))
+    //     // log(literal)
 
 
 
-        //     const sequence = literal.buildDECEN(this.redPhoton)
-        //     engine.addSystem(new utils.ActionsSequenceSystem(sequence))
+    //     //     const sequence = literal.buildDECEN(this.redPhoton)
+    //     //     engine.addSystem(new utils.ActionsSequenceSystem(sequence))
       })
-    )
+    // )
     // const greenTrigger = new GreenPhoton(this.greenBase)
     // greenTrigger.addComponent(
     //   new OnClick(() => {
