@@ -43,7 +43,10 @@ export class RiseAction implements ActionsSequenceSystem.IAction {
     this.entity.addComponentOrReplace(new utils.MoveTransformComponent(transform.position, toPosition, 5,
       () => {
         this.hasFinished = true
+        this.entity.getComponent(utils.KeepRotatingComponent).stop();
       }))
+    // Rotate entity
+    this.entity.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 30, 0)))
   }
   //Method to run on every frame
   update(dt: number): void {
