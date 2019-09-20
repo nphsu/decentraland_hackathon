@@ -17,7 +17,7 @@ export class MoveAction implements ActionsSequenceSystem.IAction {
   onStart(): void {
     const transform = this.entity.getComponent(Transform)
     const toPosition = new Vector3(this.basePosition.x + this.position.x, this.basePosition.y + this.position.y, this.basePosition.z + this.position.z)
-    this.entity.addComponentOrReplace(new utils.MoveTransformComponent(transform.position, toPosition, 0.2,
+    this.entity.addComponentOrReplace(new utils.MoveTransformComponent(transform.position, toPosition, 0.1,
       () => {
         this.hasFinished = true
       }))

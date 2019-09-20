@@ -1,3 +1,5 @@
 import { Corridor } from './corridor'
 import { Landing } from './landing'
-export { Corridor, Landing }
+import { Dome } from './dome'
+import { Staircase } from './staircase'
+export { Corridor, Landing, Dome, Staircase }
