@@ -10,7 +10,6 @@ export class Literal {
   constructor(basePosition: Vector3) {
     this.basePosition = basePosition
   }
-
   buildAFrom(photons: BluePhoton[]): ActionsSequenceSystem.SequenceBuilder {
     // TODO: if photons.length < 15
     const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
@@ -259,5 +258,4 @@ export class Literal {
       .then(new MoveAction(photons[13], new Vector3(0, 0, 0), this.basePosition))
       .then(new MoveAction(photons[14], new Vector3(0, 0, 0), this.basePosition))
   }
-
 }
