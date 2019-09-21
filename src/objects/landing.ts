@@ -1,7 +1,7 @@
 /// <reference path="../config/index.ts" />
 import utils from "../../node_modules/decentraland-ecs-utils/index"
 import { BluePhoton, RedPhoton, GreenPhoton } from '../particles/index'
-import { RiseAction } from '../actions/index'
+import { RiseAction, MoveAction, MoveSlowAction } from '../actions/index'
 
 export class Landing extends Entity {
 
@@ -24,7 +24,6 @@ export class Landing extends Entity {
       null,
       (): void => {
         const blueTrigger = BluePhoton.buildTrigger()
-        // const redPhotons = RedPhoton.buildInitArray(15)
         const redTrigger = RedPhoton.buildTrigger()
         // const greenPhoton = GreenPhoton.buildInitArray(15)
         const greenTrigger = new GreenPhoton(Position.defaultPhoton)
@@ -32,6 +31,15 @@ export class Landing extends Entity {
           .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing, blueTrigger, redTrigger, greenTrigger))
         engine.addSystem(new utils.ActionsSequenceSystem(sequence))
 
+        const redPhotons = RedPhoton.buildInitArray(15)
+        const firework = new utils.ActionsSequenceSystem.SequenceBuilder()
+          .then(new MoveSlowAction(redPhotons[0], new Vector3(35, 15, 5.5), redTrigger.getComponent(Transform).position))
+          .then(new MoveSlowAction(redPhotons[1], new Vector3(35, 16, 6.5), redTrigger.getComponent(Transform).position))
+          .then(new MoveSlowAction(redPhotons[2], new Vector3(35, 17, 5.5), redTrigger.getComponent(Transform).position))
+          .then(new MoveSlowAction(redPhotons[3], new Vector3(35, 18, 6.5), redTrigger.getComponent(Transform).position))
+          .then(new MoveSlowAction(redPhotons[4], new Vector3(35, 19, 5.5), redTrigger.getComponent(Transform).position))
+          .then(new MoveSlowAction(redPhotons[5], new Vector3(35, 20, 6.5), redTrigger.getComponent(Transform).position))
+        engine.addSystem(new utils.ActionsSequenceSystem(firework))
         // const redTrigger = new RedPhoton(redBase)
         // redTrigger.addComponent(
         //   new OnClick(() => {

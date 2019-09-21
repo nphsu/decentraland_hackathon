@@ -2,11 +2,9 @@
 
 import utils from "../node_modules/decentraland-ecs-utils/index"
 import { CreateBaseScene } from "./scenes/base_scene"
-import { RedPhoton, GreenPhoton } from './particles/index'
-import { SmallStar } from "./particles/small_star"
-
-RedPhoton.buildInitArray(15)
-GreenPhoton.buildInitArray(15)
+import { RedPhoton, GreenPhoton, SmallStar } from './particles/index'
+// RedPhoton.buildInitArray(100)
+// GreenPhoton.buildInitArray(15)
 
 
 CreateBaseScene()
