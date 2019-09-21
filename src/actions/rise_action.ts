@@ -29,15 +29,14 @@ export class RiseAction implements ActionsSequenceSystem.IAction {
   //Method when action starts
   onStart(): void {
     const transform = this.entity.getComponent(Transform)
-    // const toPosition = new Vector3(this.basePosition.x + this.position.x, this.basePosition.y + this.position.y, this.basePosition.z + this.position.z)
-    const toPosition = new Vector3(transform.position.x + 5, transform.position.y, transform.position.z)
+    const toPosition = this.basePosition.add(this.position)
     // Rotate entity
     this.entity.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 10, 0)))
-    // this.entity.addComponentOrReplace(new utils.MoveTransformComponent(transform.position, toPosition, 5,
-    //   () => {
-    //     this.hasFinished = true
-    //     this.entity.getComponent(utils.KeepRotatingComponent).stop();
-    //   }))
+    this.entity.addComponentOrReplace(new utils.MoveTransformComponent(transform.position, toPosition, 5,
+      () => {
+        this.hasFinished = true
+        this.entity.getComponent(utils.KeepRotatingComponent).stop();
+      }))
   }
   //Method to run on every frame
   update(dt: number): void {
