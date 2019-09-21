@@ -2,30 +2,30 @@ import utils from "../../node_modules/decentraland-ecs-utils/index"
 import { ActionsSequenceSystem } from "../../node_modules/decentraland-ecs-utils/actionsSequenceSystem/actionsSequenceSystem";
 import { FadeOutAction, MoveAction, FadeInAction } from "../actions/index";
 
-class FireWorksSequenceBuilder {
+class FireworksSequenceBuilder {
     static build(
-        fireWorksBall: Entity,
-        fireWorksDots: FireWorksDot[],
+        fireworksBall: Entity,
+        fireworksDots: FireworksDot[],
         startPosition: Vector3,
         addPosition: Vector3,
         bloomDelay: number
     ): ActionsSequenceSystem.SequenceBuilder[] {
         const bloomPosition = startPosition.add(addPosition)
-        const fireWorksBallSequence = new utils.ActionsSequenceSystem.SequenceBuilder()
-            .then(new MoveAction(fireWorksBall, addPosition, startPosition, bloomDelay))
-            .then(FadeOutAction(fireWorksBall, 0.5, new Vector3(0, -2, 0)))
-        const fireWorksSequences = fireWorksDots.map(dot => {
+        const fireworksBallSequence = new utils.ActionsSequenceSystem.SequenceBuilder()
+            .then(new MoveAction(fireworksBall, addPosition, startPosition, bloomDelay))
+            .then(FadeOutAction(fireworksBall, 0.5, new Vector3(0, -2, 0)))
+        const fireworksSequences = fireworksDots.map(dot => {
             const entity = dot.entity
-            const fireWorksDotSequence = new utils.ActionsSequenceSystem.SequenceBuilder()
+            const fireworksDotSequence = new utils.ActionsSequenceSystem.SequenceBuilder()
                 .then(new MoveAction(entity, Vector3.Zero(), Vector3.Zero(), bloomDelay))　// wait
                 .then(FadeInAction(entity, 1, dot.position, bloomPosition)) // bloom
-            return fadeOutWithBlink(entity, fireWorksDotSequence)
+            return fadeOutWithBlink(entity, fireworksDotSequence)
         })
-        return [fireWorksBallSequence].concat(fireWorksSequences)
+        return [fireworksBallSequence].concat(fireworksSequences)
     }
 }
 
-class FireWorksDot {
+class FireworksDot {
     entity: Entity
     position: Vector3
 
@@ -43,4 +43,4 @@ const fadeOutWithBlink = (entity: Entity, sequnce: ActionsSequenceSystem.Sequenc
         .then(FadeOutAction(entity, 0.5, new Vector3(0, -2, 0), Vector3.Zero(), new Vector3(0.2, 0.2, 0.2)))
 }
 
-export { FireWorksSequenceBuilder, FireWorksDot }
+export { FireworksSequenceBuilder, FireworksDot }
