@@ -18,8 +18,8 @@ export class BluePhoton extends Entity {
     return bluePhoton
   }
 
-  static buildTrigger() {
-    const blueTrigger = new BluePhoton(Position.bluePhotonBase)
+  static buildTrigger(): BluePhoton {
+    const blueTrigger = new BluePhoton(Position.defaultPhoton)
     blueTrigger.addComponent(
       new OnClick(() => {
         const literal = new Literal(Position.bluePhotonBase)
@@ -27,5 +27,6 @@ export class BluePhoton extends Entity {
         engine.addSystem(new utils.ActionsSequenceSystem(sequence))
       })
     )
+    return blueTrigger
   }
 }
