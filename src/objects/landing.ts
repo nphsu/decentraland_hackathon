@@ -25,8 +25,9 @@ export class Landing extends Entity {
       (): void => {
         BluePhoton.buildTrigger()
         const redPhotons = RedPhoton.buildInitArray(15)
+        const redTrigger = new RedPhoton(Position.redPhotonBase)
         const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
-          .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing, redPhotons))
+          .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing, redPhotons, redTrigger))
         // // .then(new GoingUpAction(landing, new Vector3(0, -5, 0), landing.getComponent(Transform).position))
         engine.addSystem(new utils.ActionsSequenceSystem(sequence))
 

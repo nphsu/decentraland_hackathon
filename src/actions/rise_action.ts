@@ -22,8 +22,9 @@ export class RiseAction implements ActionsSequenceSystem.IAction {
   greenBase: Vector3
   redPhoton: RedPhoton[]
   greenPhoton: GreenPhoton[]
+  redTrigger: RedPhoton
 
-  constructor(entity: Entity, position: Vector3, basePosition: Vector3, redPhoton: RedPhoton[]) {
+  constructor(entity: Entity, position: Vector3, basePosition: Vector3, redPhoton: RedPhoton[], redTrigger: RedPhoton) {
     this.entity = entity
     this.position = position
     this.basePosition = basePosition
@@ -31,6 +32,7 @@ export class RiseAction implements ActionsSequenceSystem.IAction {
     this.greenBase = Position.greenPhotonBase
     // this.redPhoton = RedPhoton.buildInitArray(15)
     this.redPhoton = redPhoton
+    this.redTrigger = redTrigger
     // this.greenPhoton = GreenPhoton.buildInitArray(15)
   }
 
@@ -41,7 +43,10 @@ export class RiseAction implements ActionsSequenceSystem.IAction {
     this.entity.addComponentOrReplace(new utils.MoveTransformComponent(transform.position, toPosition, 5,
       () => {
         this.hasFinished = true
+        this.entity.getComponent(utils.KeepRotatingComponent).stop();
       }))
+    // Rotate entity
+    this.entity.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 30, 0)))
   }
   //Method to run on every frame
   update(dt: number): void {
@@ -50,38 +55,39 @@ export class RiseAction implements ActionsSequenceSystem.IAction {
   onFinish(): void {
     log('onFinish')
     log(this.redPhoton)
-    const redTrigger = new RedPhoton(Position.redPhotonBase)
-    log(redTrigger)
-    // redTrigger.addComponent(
+    new Entity()
+    // const redTrigger = new RedPhoton(Position.redPhotonBase)
+    // log(redTrigger)
+    this.redTrigger.addComponent(
       new OnClick(() => {
-        // log('click red photon')
+        log('click red photon')
         // log(new Entity())
 
-        // const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
-        //   .while(() => null)
-        //   .then(new MoveAction(this.redPhoton[0], new Vector3(1, 0, 1), this.basePosition))
-        //   .endWhile()
+        const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
+          .while(() => null)
+          .then(new MoveAction(this.redPhoton[0], new Vector3(1, 0, 1), this.basePosition))
+          .endWhile()
 
-        //   //////////////////////////////////////////////
-        //   // A
-        //   //////////////////////////////////////////////
+          //////////////////////////////////////////////
+          // A
+          //////////////////////////////////////////////
 
-        //   .then(new MoveAction(this.redPhoton[0], new Vector3(2, 1, 1), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[1], new Vector3(2, 2, 1.5), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[2], new Vector3(2, 3, 2), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[3], new Vector3(2, 4, 2.5), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[4], new Vector3(2, 3, 2.5), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[5], new Vector3(2, 5, 3), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[6], new Vector3(2, 4, 3.5), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[7], new Vector3(2, 3, 3.5), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[8], new Vector3(2, 3, 4), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[9], new Vector3(2, 2, 4.5), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[10], new Vector3(2, 1, 5), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[11], new Vector3(0, 0, 0), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[12], new Vector3(0, 0, 0), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[13], new Vector3(0, 0, 0), this.basePosition))
-        //   .then(new MoveAction(this.redPhoton[14], new Vector3(0, 0, 0), this.basePosition))
-        // engine.addSystem(new utils.ActionsSequenceSystem(sequence))
+          .then(new MoveAction(this.redPhoton[0], new Vector3(2, 1, 1), this.basePosition))
+          .then(new MoveAction(this.redPhoton[1], new Vector3(2, 2, 1.5), this.basePosition))
+          .then(new MoveAction(this.redPhoton[2], new Vector3(2, 3, 2), this.basePosition))
+          .then(new MoveAction(this.redPhoton[3], new Vector3(2, 4, 2.5), this.basePosition))
+          .then(new MoveAction(this.redPhoton[4], new Vector3(2, 3, 2.5), this.basePosition))
+          .then(new MoveAction(this.redPhoton[5], new Vector3(2, 5, 3), this.basePosition))
+          .then(new MoveAction(this.redPhoton[6], new Vector3(2, 4, 3.5), this.basePosition))
+          .then(new MoveAction(this.redPhoton[7], new Vector3(2, 3, 3.5), this.basePosition))
+          .then(new MoveAction(this.redPhoton[8], new Vector3(2, 3, 4), this.basePosition))
+          .then(new MoveAction(this.redPhoton[9], new Vector3(2, 2, 4.5), this.basePosition))
+          .then(new MoveAction(this.redPhoton[10], new Vector3(2, 1, 5), this.basePosition))
+          .then(new MoveAction(this.redPhoton[11], new Vector3(0, 0, 0), this.basePosition))
+          .then(new MoveAction(this.redPhoton[12], new Vector3(0, 0, 0), this.basePosition))
+          .then(new MoveAction(this.redPhoton[13], new Vector3(0, 0, 0), this.basePosition))
+          .then(new MoveAction(this.redPhoton[14], new Vector3(0, 0, 0), this.basePosition))
+        engine.addSystem(new utils.ActionsSequenceSystem(sequence))
     //     // TODO: [error] Why didn't I create an instance
     //     // const literal = new Literal(new Vector3(40, 12, 7.5))
     //     // log(literal)
@@ -91,7 +97,7 @@ export class RiseAction implements ActionsSequenceSystem.IAction {
     //     //     const sequence = literal.buildDECEN(this.redPhoton)
     //     //     engine.addSystem(new utils.ActionsSequenceSystem(sequence))
       })
-    // )
+    )
     // const greenTrigger = new GreenPhoton(this.greenBase)
     // greenTrigger.addComponent(
     //   new OnClick(() => {
