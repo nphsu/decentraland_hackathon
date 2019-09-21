@@ -22,8 +22,10 @@ export class BluePhoton extends Entity {
     const blueTrigger = new BluePhoton(Position.defaultPhoton)
     blueTrigger.addComponent(
       new OnClick(() => {
-        const literal = new Literal(Position.bluePhotonBase)
-        const sequence = literal.buildAFrom(this.buildInitArray(15))
+        log('click')
+        const literal = new Literal(Vector3.Zero())
+        // const sequence = literal.buildAFrom(this.buildInitArray(15))
+        const sequence = literal.buildCover(this.buildInitArray(100))
         engine.addSystem(new utils.ActionsSequenceSystem(sequence))
       })
     )
