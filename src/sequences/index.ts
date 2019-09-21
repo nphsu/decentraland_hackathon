@@ -1,3 +1,3 @@
+import { FireworksSequenceBuilder, FireworksDot } from './fireworks';
 import { Literal } from './literal'
-
-export { Literal }
+export { Literal, FireworksSequenceBuilder, FireworksDot }

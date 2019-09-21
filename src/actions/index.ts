@@ -1,4 +1,5 @@
 import { MoveAction } from './move_action'
 import { MoveSlowAction } from './move_slow_action'
 import { RiseAction } from './rise_action'
-export { MoveAction, MoveSlowAction, RiseAction }
+import { FadeAction, FadeInAction, FadeOutAction } from './fade_action'
+export { MoveAction, MoveSlowAction, RiseAction, FadeAction, FadeInAction, FadeOutAction }
