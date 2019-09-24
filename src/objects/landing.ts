@@ -3,6 +3,7 @@ import utils from "../../node_modules/decentraland-ecs-utils/index"
 import { BluePhoton, RedPhoton, GreenPhoton } from '../particles/index'
 import { RiseAction, MoveAction, MoveSlowAction } from '../actions/index'
 import { FireworksSequenceBuilder, FireworksDot } from "../sequences/index";
+import { CountdownAction } from "../actions/countdown_action";
 
 export class Landing extends Entity {
 
@@ -29,24 +30,25 @@ export class Landing extends Entity {
         // const greenPhoton = GreenPhoton.buildInitArray(15)
         const greenTrigger = new GreenPhoton(Position.defaultPhoton)
         const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
+          .then(new CountdownAction())
           .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing, blueTrigger, redTrigger, greenTrigger))
         engine.addSystem(new utils.ActionsSequenceSystem(sequence))
 
-        const redPhotons = RedPhoton.buildInitArray(15)
-        const firework = new utils.ActionsSequenceSystem.SequenceBuilder()
-          .then(new MoveSlowAction(redPhotons[0], new Vector3(35, 15, 5.5), redTrigger.getComponent(Transform).position))
-          .then(new MoveSlowAction(redPhotons[1], new Vector3(35, 16, 6.5), redTrigger.getComponent(Transform).position))
-          .then(new MoveSlowAction(redPhotons[2], new Vector3(35, 17, 5.5), redTrigger.getComponent(Transform).position))
-          .then(new MoveSlowAction(redPhotons[3], new Vector3(35, 18, 6.5), redTrigger.getComponent(Transform).position))
-          .then(new MoveSlowAction(redPhotons[4], new Vector3(35, 19, 5.5), redTrigger.getComponent(Transform).position))
-          .then(new MoveSlowAction(redPhotons[5], new Vector3(35, 20, 6.5), redTrigger.getComponent(Transform).position))
-        engine.addSystem(new utils.ActionsSequenceSystem(firework))
+        // const redPhotons = RedPhoton.buildInitArray(15)
+        // const firework = new utils.ActionsSequenceSystem.SequenceBuilder()
+        //   .then(new MoveSlowAction(redPhotons[0], new Vector3(35, 15, 5.5), redTrigger.getComponent(Transform).position))
+        //   .then(new MoveSlowAction(redPhotons[1], new Vector3(35, 16, 6.5), redTrigger.getComponent(Transform).position))
+        //   .then(new MoveSlowAction(redPhotons[2], new Vector3(35, 17, 5.5), redTrigger.getComponent(Transform).position))
+        //   .then(new MoveSlowAction(redPhotons[3], new Vector3(35, 18, 6.5), redTrigger.getComponent(Transform).position))
+        //   .then(new MoveSlowAction(redPhotons[4], new Vector3(35, 19, 5.5), redTrigger.getComponent(Transform).position))
+        //   .then(new MoveSlowAction(redPhotons[5], new Vector3(35, 20, 6.5), redTrigger.getComponent(Transform).position))
+        // engine.addSystem(new utils.ActionsSequenceSystem(firework))
 
-        const startPosition = new Vector3(15, 0, 7.5)
-        const addPosition = new Vector3(0, 20, 0)
-        const bloomDelay = 3
-        FireworksSequenceBuilder.build(new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1)), circle16.concat(dcl), startPosition, addPosition, bloomDelay)
-          .forEach(each => engine.addSystem(new utils.ActionsSequenceSystem(each)))
+        // const startPosition = new Vector3(15, 0, 7.5)
+        // const addPosition = new Vector3(0, 20, 0)
+        // const bloomDelay = 3
+        // FireworksSequenceBuilder.build(new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1)), circle16.concat(dcl), startPosition, addPosition, bloomDelay)
+        //   .forEach(each => engine.addSystem(new utils.ActionsSequenceSystem(each)))
 
         // const redTrigger = new RedPhoton(redBase)
         // redTrigger.addComponent(
