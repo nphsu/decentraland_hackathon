@@ -41,7 +41,7 @@ export class Landing extends Entity {
           .then(new CountdownAction(3))
           .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing, blueTrigger, redTrigger, greenTrigger))
           // .then(new FollowAction(this)) // TODO: Why crushed?
-          .then(new BubbleAction(scoreBoard))
+          .then(new BubbleAction(scoreBoard, 10))
         engine.addSystem(new utils.ActionsSequenceSystem(sequence))
 
         // if it is a new record, then the fireworks will start
