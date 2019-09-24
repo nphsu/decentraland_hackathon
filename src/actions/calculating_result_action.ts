@@ -1,6 +1,7 @@
 import utils from "../../node_modules/decentraland-ecs-utils/index"
 import { ActionsSequenceSystem } from "../../node_modules/decentraland-ecs-utils/actionsSequenceSystem/actionsSequenceSystem";
-import { getScore, saveRecord, getRecords } from "../states/store";
+import { getScore, saveRecord, getRecords, deleteAllEntities, getTempEntites } from "../states/store";
+import { RecordBoardText } from "../components/record_board_text";
 
 export class CalculatingResultAction implements ActionsSequenceSystem.IAction {
   hasFinished: boolean = false;
@@ -31,8 +32,9 @@ export class CalculatingResultAction implements ActionsSequenceSystem.IAction {
         log('This is a max record!')
       }
     }
+    const recordBoardText = new RecordBoardText()
+    recordBoardText.saveRecord(finalScore)
 
-    saveRecord(finalScore)
     const transform = this.entity.getComponent(Transform)
     const toPosition = new Vector3(this.basePosition.x + this.position.x, this.basePosition.y + this.position.y, this.basePosition.z + this.position.z)
     this.entity.addComponentOrReplace(new utils.MoveTransformComponent(transform.position, toPosition, this.duration,
@@ -45,5 +47,12 @@ export class CalculatingResultAction implements ActionsSequenceSystem.IAction {
   }
   //Method to run at the end
   onFinish(): void {
+    // TODO: doen't work
+    log('onFinish: CalculatingResultAction')
+    const entites = getTempEntites()
+    log(entites)
+    deleteAllEntities()
+    const entites2 = getTempEntites()
+    log(entites2)
   }
 }

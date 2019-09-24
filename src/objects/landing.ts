@@ -8,6 +8,7 @@ import { ScoreBoard } from "../components/index";
 import { BubbleAction } from "../actions/bubble_action";
 import { CalculatingResultAction } from "../actions/calculating_result_action";
 import { Point } from "../particles/point";
+import { addTempEntity } from "../states/store";
 
 export class Landing extends Entity {
 
@@ -36,6 +37,7 @@ export class Landing extends Entity {
 
         const scoreBoard = new ScoreBoard()
         scoreBoard.init(this)
+        addTempEntity(scoreBoard)
 
         const position = this.getComponent(Transform).position
 

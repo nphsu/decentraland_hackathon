@@ -1,6 +1,7 @@
 /// <reference path="../config/index.ts" />
 import utils from "../../node_modules/decentraland-ecs-utils/index"
-import { ActionsSequenceSystem } from "../../node_modules/decentraland-ecs-utils/actionsSequenceSystem/actionsSequenceSystem";
+import { ActionsSequenceSystem } from "../../node_modules/decentraland-ecs-utils/actionsSequenceSystem/actionsSequenceSystem"
+import { addTempEntity, deleteAllEntities } from "../states/store"
 
 export class CountdownAction implements ActionsSequenceSystem.IAction {
   alreadyStarted: boolean = false
