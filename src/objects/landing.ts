@@ -1,9 +1,10 @@
 /// <reference path="../config/index.ts" />
 import utils from "../../node_modules/decentraland-ecs-utils/index"
 import { BluePhoton, RedPhoton, GreenPhoton } from '../particles/index'
-import { RiseAction, MoveAction, MoveSlowAction } from '../actions/index'
+import { RiseAction, MoveAction, MoveSlowAction, CountdownAction } from '../actions/index'
 import { FireworksSequenceBuilder, FireworksDot } from "../sequences/index";
-import { CountdownAction } from "../actions/countdown_action";
+import { FollowAction } from "../actions/follow_action";
+import { ScoreBoard } from "../components/index";
 
 export class Landing extends Entity {
 
@@ -29,9 +30,14 @@ export class Landing extends Entity {
         const redTrigger = RedPhoton.buildTrigger()
         // const greenPhoton = GreenPhoton.buildInitArray(15)
         const greenTrigger = new GreenPhoton(Position.defaultPhoton)
+
+        const scoreBoard = new ScoreBoard()
+        scoreBoard.init(this)
+
         const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
-          .then(new CountdownAction())
+          .then(new CountdownAction(3))
           .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing, blueTrigger, redTrigger, greenTrigger))
+          .then(new FollowAction(this))
         engine.addSystem(new utils.ActionsSequenceSystem(sequence))
 
         // const redPhotons = RedPhoton.buildInitArray(15)

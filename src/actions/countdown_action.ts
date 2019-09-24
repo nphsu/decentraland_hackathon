@@ -1,32 +1,33 @@
 /// <reference path="../config/index.ts" />
 import utils from "../../node_modules/decentraland-ecs-utils/index"
 import { ActionsSequenceSystem } from "../../node_modules/decentraland-ecs-utils/actionsSequenceSystem/actionsSequenceSystem";
-import { BluePhoton, RedPhoton, GreenPhoton } from '../particles/index'
-import { Literal } from '../sequences/index'
-import { MoveAction } from '../actions/move_action'
 
 export class CountdownAction implements ActionsSequenceSystem.IAction {
   hasFinished: boolean = false;
+  startTime: number
 
-  constructor() {
-
+  constructor(time: number) {
+    this.startTime = time
   }
 
   //Method when action starts
   onStart(): void {
     const countdownText = new Entity()
     engine.addEntity(countdownText)
-    let time = 3
-    countdownText.addComponent(new Transform({ position: new Vector3(40, 18, 7.5), scale: new Vector3(2,2,2), rotation: Quaternion.Euler(0, 90, 0) }))
-    countdownText.addComponent(new TextShape(time.toString()))
+    countdownText.addComponent(new Transform({ position: Position.countdownBoard, scale: new Vector3(2,2,2), rotation: Quaternion.Euler(0, 90, 0) }))
+    countdownText.addComponent(new TextShape(this.startTime.toString()))
     countdownText.addComponent(new utils.Interval(1000, (): void => {
-      time--
-      if (time < 0) {
+      this.startTime--
+      if (this.startTime < 0) {
         this.hasFinished = true
         countdownText.removeComponent(utils.Interval)
-        countdownText.removeComponent(TextShape)
+        countdownText.addComponentOrReplace(new TextShape("GO"))
+        countdownText.addComponent(new utils.Delay(2000, () => {
+          countdownText.addComponentOrReplace(new TextShape(""))
+        }))
+      } else {
+        countdownText.getComponent(TextShape).value = this.startTime.toString()
       }
-      countdownText.getComponent(TextShape).value = time.toString()
     }))
   }
   //Method to run on every frame
