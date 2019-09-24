@@ -1,3 +1,4 @@
+import { Point } from './point';
 /// <reference path="../config/index.ts" />
 import { Literal } from '../sequences/index'
 import utils from "../../node_modules/decentraland-ecs-utils/index"
@@ -45,6 +46,7 @@ export class BluePhoton extends Entity {
     blueBubble.addComponent(
       new OnClick(() => {
         log('bubble')
+        new Point(1, blueBubble.getComponent(Transform).position, Quaternion.Euler(0, 270, 0))
         engine.removeEntity(blueBubble)
         scoreBoard.addScore()
       })
