@@ -1,4 +1,4 @@
-import {addScore, getScore} from '../states/store'
+import {addScore, getScore, addTempEntity} from '../states/store'
 
 /// <reference path="../config/index.ts" />
 export class ScoreBoard extends Entity {
@@ -37,6 +37,10 @@ export class ScoreBoard extends Entity {
     this.board4.addComponent(new Transform({ position: new Vector3(-3, 3, 0), rotation: Quaternion.Euler(0, 270, 0), scale: new Vector3(0.5, 0.5, 0.5) }))
     this.board4.addComponent(new TextShape(this.score.toString()))
     this.board4.setParent(parent)
+    addTempEntity(this.board1)
+    addTempEntity(this.board2)
+    addTempEntity(this.board3)
+    addTempEntity(this.board4)
   }
 
   refresh(): void {

@@ -1,11 +1,14 @@
 /// <reference path="../config/index.ts" />
 import { Dome, Staircase, Landing, Corridor } from '../objects/index'
 import { SmallStar } from '../particles/index'
+import { RecordBoard } from '../objects/record_board'
+import { RecordBoardText } from '../components/record_board_text'
 
 export function CreateBaseScene() {
   new Dome()
   new Staircase()
   new Corridor()
+  new RecordBoard()
 
   const landing = new Landing()
   landing.linkTrigger()
