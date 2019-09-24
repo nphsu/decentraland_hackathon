@@ -45,9 +45,9 @@ export class Landing extends Entity {
         const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
           .then(new CountdownAction(3))
           // .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing, blueTrigger, redTrigger, greenTrigger))
-          .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing)) // TODO: integrate to MoveAction
-          // .then(new FollowAction(this)) // TODO: Why crushed?
-          .then(new BubbleAction(scoreBoard, 10))
+          // .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing)) // TODO: integrate to MoveAction
+          .then(new FollowAction(this, scoreBoard)) // TODO: Why crushed?
+          // .then(new BubbleAction(scoreBoard, 10))
           // TODO: Calcurating the score
           .then(new CalculatingResultAction(this, position, Vector3.Zero(), 10))
         engine.addSystem(new utils.ActionsSequenceSystem(sequence))
