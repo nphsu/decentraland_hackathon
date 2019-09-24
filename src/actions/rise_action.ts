@@ -13,17 +13,18 @@ export class RiseAction implements ActionsSequenceSystem.IAction {
 
   redBase: Vector3
   greenBase: Vector3
-  blueTrigger: BluePhoton
-  redTrigger: RedPhoton
-  greenTrigger: GreenPhoton
+  // blueTrigger: BluePhoton
+  // redTrigger: RedPhoton
+  // greenTrigger: GreenPhoton
 
-  constructor(entity: Entity, position: Vector3, basePosition: Vector3, blueTigger: BluePhoton, redTrigger: RedPhoton, greenTrigger: GreenPhoton) {
+  // constructor(entity: Entity, position: Vector3, basePosition: Vector3, blueTigger: BluePhoton, redTrigger: RedPhoton, greenTrigger: GreenPhoton) {
+  constructor(entity: Entity, position: Vector3, basePosition: Vector3) {
     this.entity = entity
     this.position = position
     this.basePosition = basePosition
-    this.blueTrigger = blueTigger
-    this.redTrigger = redTrigger
-    this.greenTrigger = greenTrigger
+    // this.blueTrigger = blueTigger
+    // this.redTrigger = redTrigger
+    // this.greenTrigger = greenTrigger
   }
 
   //Method when action starts
@@ -45,13 +46,13 @@ export class RiseAction implements ActionsSequenceSystem.IAction {
   onFinish(): void {
     log('onFinish')
 
-    const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
-      .while(() => null)
-      .then(new MoveAction(this.blueTrigger, new Vector3(1, 1, 1), this.basePosition))
-      .endWhile()
-      .then(new MoveAction(this.blueTrigger, Position.bluePhotonBase, Position.defaultPhoton))
-      .then(new MoveAction(this.redTrigger, Position.redPhotonBase, Position.defaultPhoton))
-      .then(new MoveAction(this.greenTrigger, Position.greenPhotonBase, Position.defaultPhoton))
-    engine.addSystem(new utils.ActionsSequenceSystem(sequence))
+    // const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
+    //   .while(() => null)
+    //   .then(new MoveAction(this.blueTrigger, new Vector3(1, 1, 1), this.basePosition))
+    //   .endWhile()
+    //   .then(new MoveAction(this.blueTrigger, Position.bluePhotonBase, Position.defaultPhoton))
+    //   .then(new MoveAction(this.redTrigger, Position.redPhotonBase, Position.defaultPhoton))
+    //   .then(new MoveAction(this.greenTrigger, Position.greenPhotonBase, Position.defaultPhoton))
+    // engine.addSystem(new utils.ActionsSequenceSystem(sequence))
   }
 }

@@ -28,6 +28,7 @@ export class BubbleAction implements ActionsSequenceSystem.IAction {
         this.entity.removeComponent(utils.Interval)
         engine.removeEntity(this.entity)
         this.bubbles.forEach(b => engine.removeEntity(b))
+        this.hasFinished = true
       }
       let rndX: number = Math.floor(Math.random() * 50)
       let rndY: number = Math.floor(Math.random() * 40)

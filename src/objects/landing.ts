@@ -6,6 +6,7 @@ import { FireworksSequenceBuilder, FireworksDot } from "../sequences/index";
 import { FollowAction } from "../actions/follow_action";
 import { ScoreBoard } from "../components/index";
 import { BubbleAction } from "../actions/bubble_action";
+import { CalculatingResultAction } from "../actions/calculating_result_action";
 
 export class Landing extends Entity {
 
@@ -27,10 +28,10 @@ export class Landing extends Entity {
       null,
       null,
       (): void => {
-        const blueTrigger = BluePhoton.buildTrigger()
-        const redTrigger = RedPhoton.buildTrigger()
+        // const blueTrigger = BluePhoton.buildTrigger()
+        // const redTrigger = RedPhoton.buildTrigger()
         // const greenPhoton = GreenPhoton.buildInitArray(15)
-        const greenTrigger = new GreenPhoton(Position.defaultPhoton)
+        // const greenTrigger = new GreenPhoton(Position.defaultPhoton)
 
         const scoreBoard = new ScoreBoard()
         scoreBoard.init(this)
@@ -39,9 +40,12 @@ export class Landing extends Entity {
 
         const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
           .then(new CountdownAction(3))
-          .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing, blueTrigger, redTrigger, greenTrigger))
+          // .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing, blueTrigger, redTrigger, greenTrigger))
+          .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing)) // TODO: integrate to MoveAction
           // .then(new FollowAction(this)) // TODO: Why crushed?
           .then(new BubbleAction(scoreBoard, 10))
+          // TODO: Calcurating the score
+          .then(new CalculatingResultAction(this, position, Vector3.Zero(), 10))
         engine.addSystem(new utils.ActionsSequenceSystem(sequence))
 
         // if it is a new record, then the fireworks will start
