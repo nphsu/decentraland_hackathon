@@ -20,15 +20,21 @@ export class BluePhoton extends Entity {
 
   static buildTrigger(): BluePhoton {
     const blueTrigger = new BluePhoton(Position.defaultPhoton)
+    blueTrigger.addComponent(new AudioSource(new AudioClip("../sounds/shot1.mp3")))
     blueTrigger.addComponent(
       new OnClick(() => {
         log('click')
+        const source = blueTrigger.getComponent(AudioSource)
+        source.loop = true
+        source.playing = true
+        log(source) // TODO: confirm souding
+
         const literal = new Literal(Vector3.Zero())
         // const sequence = literal.buildAFrom(this.buildInitArray(15))
         const sequence = literal.buildCover(this.buildInitArray(100))
         engine.addSystem(new utils.ActionsSequenceSystem(sequence))
       })
-    )
+    )  
     return blueTrigger
   }
 }
