@@ -3,6 +3,7 @@ import { Point } from './point';
 import { Literal } from '../sequences/index'
 import utils from "../../node_modules/decentraland-ecs-utils/index"
 import { ScoreBoard } from '../components/index'
+import { GunSound } from '../components/gun_sound';
 
 export class BluePhoton extends Entity {
   constructor(position: Vector3) {
@@ -47,6 +48,7 @@ export class BluePhoton extends Entity {
       new OnClick(() => {
         log('bubble')
         new Point(1, blueBubble.getComponent(Transform).position, Quaternion.Euler(0, 270, 0))
+        new GunSound()
         engine.removeEntity(blueBubble)
         scoreBoard.addScore()
       })

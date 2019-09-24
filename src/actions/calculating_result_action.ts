@@ -1,7 +1,7 @@
 import utils from "../../node_modules/decentraland-ecs-utils/index"
 import { ActionsSequenceSystem } from "../../node_modules/decentraland-ecs-utils/actionsSequenceSystem/actionsSequenceSystem";
 import { getScore, saveRecord, getRecords, deleteAllEntities, getTempEntites } from "../states/store";
-import { RecordBoardText } from "../components/record_board_text";
+import { RecordBoardText } from "../components/index";
 
 export class CalculatingResultAction implements ActionsSequenceSystem.IAction {
   hasFinished: boolean = false;

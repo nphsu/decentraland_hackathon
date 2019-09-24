@@ -9,6 +9,7 @@ import { BubbleAction } from "../actions/bubble_action";
 import { CalculatingResultAction } from "../actions/calculating_result_action";
 import { Point } from "../particles/point";
 import { addTempEntity } from "../states/store";
+import { FireworksSound } from "../components/fireworks_sound";
 
 export class Landing extends Entity {
 
@@ -72,6 +73,7 @@ export class Landing extends Entity {
             const currentPosition = fireworksBall.getComponent(Transform).position
             const point = Math.ceil(addPosition.y - currentPosition.y)
             new Point(point, fireworksBall.getComponent(Transform).position, Quaternion.Euler(0, 270, 0))
+            new FireworksSound()
             scoreBoard.addScore(point)
           })
         )
