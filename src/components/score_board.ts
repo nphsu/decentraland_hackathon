@@ -1,4 +1,4 @@
-import {addScore, getScore} from '../states/store'
+import { addScore, getScore } from '../states/store'
 
 /// <reference path="../config/index.ts" />
 export class ScoreBoard extends Entity {
@@ -14,8 +14,8 @@ export class ScoreBoard extends Entity {
     engine.addEntity(this)
   }
 
-  addScore(): void {
-    addScore()
+  addScore(point = 1): void {
+    addScore(point)
     this.score = getScore()
     this.refresh()
   }
