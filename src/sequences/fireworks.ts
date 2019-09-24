@@ -16,11 +16,8 @@ class FireworksSequenceBuilder {
             .then(FadeOutAction(fireworksBall, 0.5, new Vector3(0, -2, 0)))
         const fireworksSequences = fireworksDots.map(dot => {
             const entity = dot.entity
-            const wait = new MoveAction(entity, Vector3.Zero(), Vector3.Zero(), bloomDelay)
             const fireworksDotSequence = new utils.ActionsSequenceSystem.SequenceBuilder()
-                .while(() => fireworksBall.alive && !wait.hasFinished)
-                .then(wait)
-                .endWhile()
+                .then(new MoveAction(entity, Vector3.Zero(), Vector3.Zero(), bloomDelay))
                 .then(FadeInAction(entity, 1, dot.position, bloomPosition)) // bloom
             return fadeOutWithBlink(entity, fireworksDotSequence)
         })
