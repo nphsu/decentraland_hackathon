@@ -1,6 +1,7 @@
 /// <reference path="../config/index.ts" />
 import { Literal } from '../sequences/index'
 import utils from "../../node_modules/decentraland-ecs-utils/index"
+import { ScoreBoard } from '../components/index'
 
 export class BluePhoton extends Entity {
   constructor(position: Vector3) {
@@ -36,5 +37,18 @@ export class BluePhoton extends Entity {
       })
     )
     return blueTrigger
+  }
+
+  static buildBubble(position: Vector3, scoreBoard: ScoreBoard): BluePhoton {
+    log('blueBubble build..')
+    const blueBubble = new BluePhoton(position)
+    blueBubble.addComponent(
+      new OnClick(() => {
+        log('bubble')
+        engine.removeEntity(blueBubble)
+        scoreBoard.addScore()
+      })
+    )
+    return blueBubble
   }
 }

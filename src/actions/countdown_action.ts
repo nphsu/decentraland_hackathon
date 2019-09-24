@@ -3,7 +3,8 @@ import utils from "../../node_modules/decentraland-ecs-utils/index"
 import { ActionsSequenceSystem } from "../../node_modules/decentraland-ecs-utils/actionsSequenceSystem/actionsSequenceSystem";
 
 export class CountdownAction implements ActionsSequenceSystem.IAction {
-  hasFinished: boolean = false;
+  alreadyStarted: boolean = false
+  hasFinished: boolean = false
   startTime: number
 
   constructor(time: number) {
@@ -12,6 +13,10 @@ export class CountdownAction implements ActionsSequenceSystem.IAction {
 
   //Method when action starts
   onStart(): void {
+    if (this.alreadyStarted) {
+      return
+    }
+    this.alreadyStarted = true
     const countdownText = new Entity()
     engine.addEntity(countdownText)
     countdownText.addComponent(new Transform({ position: Position.countdownBoard, scale: new Vector3(2,2,2), rotation: Quaternion.Euler(0, 90, 0) }))

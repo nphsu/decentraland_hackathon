@@ -1,10 +1,11 @@
 /// <reference path="../config/index.ts" />
 import utils from "../../node_modules/decentraland-ecs-utils/index"
 import { BluePhoton, RedPhoton, GreenPhoton } from '../particles/index'
-import { RiseAction, MoveAction, MoveSlowAction, CountdownAction } from '../actions/index'
+import { RiseAction, MoveAction, CountdownAction } from '../actions/index'
 import { FireworksSequenceBuilder, FireworksDot } from "../sequences/index";
 import { FollowAction } from "../actions/follow_action";
 import { ScoreBoard } from "../components/index";
+import { BubbleAction } from "../actions/bubble_action";
 
 export class Landing extends Entity {
 
@@ -34,11 +35,16 @@ export class Landing extends Entity {
         const scoreBoard = new ScoreBoard()
         scoreBoard.init(this)
 
+        const position = this.getComponent(Transform).position
+
         const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
           .then(new CountdownAction(3))
           .then(new RiseAction(this, new Vector3(0, 5, 0), Position.landing, blueTrigger, redTrigger, greenTrigger))
-          .then(new FollowAction(this))
+          // .then(new FollowAction(this)) // TODO: Why crushed?
+          .then(new BubbleAction(scoreBoard))
         engine.addSystem(new utils.ActionsSequenceSystem(sequence))
+
+        // if it is a new record, then the fireworks will start
 
         // const redPhotons = RedPhoton.buildInitArray(15)
         // const firework = new utils.ActionsSequenceSystem.SequenceBuilder()
