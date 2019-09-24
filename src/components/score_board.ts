@@ -14,8 +14,8 @@ export class ScoreBoard extends Entity {
     engine.addEntity(this)
   }
 
-  addScore(): void {
-    addScore()
+  addScore(point = 1): void {
+    addScore(point)
     this.score = getScore()
     this.refresh()
   }

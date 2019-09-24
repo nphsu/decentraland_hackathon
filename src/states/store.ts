@@ -6,8 +6,8 @@ export function getScore() {
   return score
 }
 
-export function addScore() {
-  score++
+export function addScore(point = 1) {
+  score += point
 }
 
 export function saveRecord(score: number) {

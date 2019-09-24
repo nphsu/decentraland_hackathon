@@ -17,7 +17,7 @@ class FireworksSequenceBuilder {
         const fireworksSequences = fireworksDots.map(dot => {
             const entity = dot.entity
             const fireworksDotSequence = new utils.ActionsSequenceSystem.SequenceBuilder()
-                .then(new MoveAction(entity, Vector3.Zero(), Vector3.Zero(), bloomDelay))　// wait
+                .then(new MoveAction(entity, Vector3.Zero(), Vector3.Zero(), bloomDelay))
                 .then(FadeInAction(entity, 1, dot.position, bloomPosition)) // bloom
             return fadeOutWithBlink(entity, fireworksDotSequence)
         })

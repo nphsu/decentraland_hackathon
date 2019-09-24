@@ -7,6 +7,7 @@ import { FollowAction } from "../actions/follow_action";
 import { ScoreBoard } from "../components/index";
 import { BubbleAction } from "../actions/bubble_action";
 import { CalculatingResultAction } from "../actions/calculating_result_action";
+import { Point } from "../particles/point";
 import { addTempEntity } from "../states/store";
 
 export class Landing extends Entity {
@@ -62,11 +63,20 @@ export class Landing extends Entity {
         //   .then(new MoveSlowAction(redPhotons[5], new Vector3(35, 20, 6.5), redTrigger.getComponent(Transform).position))
         // engine.addSystem(new utils.ActionsSequenceSystem(firework))
 
-        // const startPosition = new Vector3(15, 0, 7.5)
-        // const addPosition = new Vector3(0, 20, 0)
-        // const bloomDelay = 3
-        // FireworksSequenceBuilder.build(new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1)), circle16.concat(dcl), startPosition, addPosition, bloomDelay)
-        //   .forEach(each => engine.addSystem(new utils.ActionsSequenceSystem(each)))
+        const startPosition = new Vector3(15, 0, 7.5)
+        const addPosition = new Vector3(0, 20, 0)
+        const bloomDelay = 20
+        const fireworksBall = new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1))
+        fireworksBall.addComponent(
+          new OnClick(() => {
+            const currentPosition = fireworksBall.getComponent(Transform).position
+            const point = Math.ceil(addPosition.y - currentPosition.y)
+            new Point(point, fireworksBall.getComponent(Transform).position, Quaternion.Euler(0, 270, 0))
+            scoreBoard.addScore(point)
+          })
+        )
+        FireworksSequenceBuilder.build(fireworksBall, circle16.concat(dcl), startPosition, addPosition, bloomDelay)
+          .forEach(each => engine.addSystem(new utils.ActionsSequenceSystem(each)))
 
         // const redTrigger = new RedPhoton(redBase)
         // redTrigger.addComponent(
