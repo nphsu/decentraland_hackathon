@@ -22,7 +22,7 @@ export class RecordBoardText extends Entity {
 
   refresh(): void {
     const recordStr = getRecords()
-      .sort((a, b) => a - b)
+      .sort((a, b) => b - a)
       .map((r, i) => {
         switch (i) {
           case 0:

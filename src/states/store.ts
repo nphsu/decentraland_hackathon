@@ -38,6 +38,7 @@ export function hasStartedGame(): boolean {
 }
 
 export function startGame() {
+  score = 0
   hasStarted = true
 }
 
