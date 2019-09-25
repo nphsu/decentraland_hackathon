@@ -1,6 +1,7 @@
 let score: number = 0
 let records: number[] = new Array()
 let tempEntites: Entity[] = new Array()
+let recordBoardEntity: Entity
 let hasStarted: boolean = false
 
 export function getScore() {
@@ -31,6 +32,16 @@ export function addTempEntity(entity) {
 
 export function deleteAllEntities() {
   tempEntites.forEach(e => engine.removeEntity(e))
+}
+
+export function addRecordBoardEntity(entity) {
+  recordBoardEntity = entity
+}
+
+export function deleteRecordBoardEntity() {
+  if (!!recordBoardEntity) {
+    engine.removeEntity(recordBoardEntity)
+  }
 }
 
 export function hasStartedGame(): boolean {

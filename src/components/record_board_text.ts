@@ -1,4 +1,4 @@
-import { addScore, saveRecord, getRecords } from '../states/store'
+import { addScore, saveRecord, getRecords, addRecordBoardEntity, deleteRecordBoardEntity } from '../states/store'
 
 /// <reference path="../config/index.ts" />
 export class RecordBoardText extends Entity {
@@ -6,6 +6,8 @@ export class RecordBoardText extends Entity {
   constructor() {
     super()
     engine.addEntity(this)
+    deleteRecordBoardEntity()
+    addRecordBoardEntity(this)
     this.addComponent(new Transform({ 
       position: Position.recordBoardText, 
       rotation: Rotate.recordBoardText, 
@@ -26,11 +28,11 @@ export class RecordBoardText extends Entity {
       .map((r, i) => {
         switch (i) {
           case 0:
-            return `FIRST : ${r} point \n`
+            return `1st : ${r} point \n`
           case 1:
-            return `SECOND : ${r} point \n`
+            return `2nd : ${r} point \n`
           case 2:
-            return `THIRD : ${r} point`
+            return `3rd : ${r} point`
           default:
             log('error')
             break
