@@ -9,7 +9,7 @@ export class FollowAction implements ActionsSequenceSystem.IAction {
   scoreBoard: ScoreBoard
   entity: Entity
   position: Vector3
-  limitTimeSec: number = 60
+  limitTimeSec: number = 30
   currentTimeSec: number = 0
   bubbles: BluePhoton[]
 
@@ -17,6 +17,7 @@ export class FollowAction implements ActionsSequenceSystem.IAction {
     this.entity = entity
     this.position = entity.getComponent(Transform).position
     this.scoreBoard = scoreBoard
+    this.bubbles = new Array()
   }
 
   //Method when action starts
@@ -28,7 +29,7 @@ export class FollowAction implements ActionsSequenceSystem.IAction {
     path[0] = new Vector3(x, y, z)
     path[1] = new Vector3(x + 5, y, z + 5)
     path[2] = new Vector3(x + 5, y + 5, z + 5)
-    path[3] = new Vector3(x + 5, y + 10, z + 10)
+    path[3] = new Vector3(x, y + 5, z)
     path[4] = new Vector3(x - 10, y + 5, z)
     path[5] = new Vector3(x - 10, y + 10, z + 5)
     path[6] = new Vector3(x - 15, y + 5, z + 5)
@@ -49,7 +50,7 @@ export class FollowAction implements ActionsSequenceSystem.IAction {
       if (this.limitTimeSec < this.currentTimeSec) {
         log('remove all')
         this.entity.removeComponent(utils.Interval)
-        engine.removeEntity(this.entity)
+        // engine.removeEntity(this.entity)
         this.bubbles.forEach(b => engine.removeEntity(b))
         this.hasFinished = true
       }
@@ -66,5 +67,6 @@ export class FollowAction implements ActionsSequenceSystem.IAction {
   }
   //Method to run at the end
   onFinish(): void {
+    log('onFinish FollowAction')
   }
 }
