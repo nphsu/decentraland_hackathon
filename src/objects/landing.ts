@@ -10,6 +10,7 @@ import { CalculatingResultAction } from "../actions/calculating_result_action";
 import { Point } from "../particles/point";
 import { addTempEntity, hasStartedGame, startGame } from "../states/store";
 import { FireworksSound } from "../components/fireworks_sound";
+import { GunSound } from '../components/gun_sound';
 
 export class Landing extends Entity {
 
@@ -62,6 +63,18 @@ export class Landing extends Entity {
         //   .then(new MoveSlowAction(redPhotons[4], new Vector3(35, 19, 5.5), redTrigger.getComponent(Transform).position))
         //   .then(new MoveSlowAction(redPhotons[5], new Vector3(35, 20, 6.5), redTrigger.getComponent(Transform).position))
         // engine.addSystem(new utils.ActionsSequenceSystem(firework))
+
+        const hiddenPhoton = new GreenPhoton(new Vector3(0, -1.5, 0))
+        hiddenPhoton.setParent(this)
+        hiddenPhoton.addComponent(
+          new OnClick(() => {
+            new GunSound()
+            const currentPosition = this.getComponent(Transform).position.add(hiddenPhoton.getComponent(Transform).position)
+            const point = new Point(20, currentPosition, Quaternion.Euler(0, 90, 0), new Vector3(0, -1, 0))
+            scoreBoard.addScore(point.point)
+            engine.removeEntity(hiddenPhoton)
+          })
+        )
 
         const startPosition = new Vector3(15, 0, 7.5)
         const addPosition = new Vector3(0, 20, 0)
