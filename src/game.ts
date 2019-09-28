@@ -4,8 +4,8 @@ import utils from "../node_modules/decentraland-ecs-utils/index"
 import { CreateBaseScene } from "./scenes/base_scene"
 import { BlackBox } from "./objects/black_box"
 import { WhiteBox } from "./objects/white_box"
+import { MoveAction, FadeOutAction, ScaleAction } from "./actions/index"
 import { BluePhoton, GreenPhoton, RedPhoton } from "./particles/index"
-import { MoveAction } from "./actions/index"
 
 CreateBaseScene()
 
@@ -90,12 +90,21 @@ const box61 = new BlackBox(Position.initBox61)
 const box62 = new WhiteBox(Position.initBox62)
 const box63 = new WhiteBox(Position.initBox63)
 
-const gateTrigger = new RedPhoton(new Vector3(-12, 3, 7.5), Vector3.One())
+const gateTrigger = new RedPhoton(new Vector3(-15, 3, 7.5), Vector3.One())
+
+const blinkSequence = new utils.ActionsSequenceSystem.SequenceBuilder()
+  .while(() => true)
+  .then(new ScaleAction(gateTrigger, new Vector3(1.2, 1.2, 1.2)))
+  .then(new ScaleAction(gateTrigger, new Vector3(0.7, 0.7, 0.7)))
+  .endWhile()
+engine.addSystem(new utils.ActionsSequenceSystem(blinkSequence))
+
 gateTrigger.addComponent(
   new OnClick(() => {
     log('Open the Gate')
     // openGate()
     const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
+      .then(FadeOutAction(gateTrigger, 1, new Vector3(6, 0, 0)))
       .then(new MoveAction(box1, Position.box01, Vector3.Zero()))
       .then(new MoveAction(box2, Position.box02, Vector3.Zero()))
       .then(new MoveAction(box3, Position.box03, Vector3.Zero()))
