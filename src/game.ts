@@ -5,8 +5,7 @@ import { CreateBaseScene } from "./scenes/base_scene"
 import { BlackBox } from "./objects/black_box"
 import { WhiteBox } from "./objects/white_box"
 import { GreenPhoton, RedPhoton } from "./particles/index"
-import { MoveAction, FadeOutAction, FadeInAction, FadeAction, ScaleAction } from "./actions/index"
-import { ActionsSequenceSystem } from "../node_modules/decentraland-ecs-utils/actionsSequenceSystem/actionsSequenceSystem";
+import { MoveAction, FadeOutAction, ScaleAction } from "./actions/index"
 
 CreateBaseScene()
 
