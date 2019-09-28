@@ -4,12 +4,13 @@ export class Point extends Entity {
     point: number
     position: Vector3
 
-    constructor(point: number, position: Vector3, rotation: Quaternion) {
+    constructor(point: number, position: Vector3, rotation: Quaternion, pointPosition = POINT_POSITION, displayTime = DISPLAY_TIME) {
         super()
         engine.addEntity(this)
+        this.point = point
         this.addComponent(new Transform({ position: Vector3.Zero(), rotation }))
         this.addComponent(new TextShape(`+${point.toString()}`));
-        this.addComponentOrReplace(new utils.MoveTransformComponent(position, position.add(POINT_POSITION), DISPLAY_TIME, () => engine.removeEntity(this)))
+        this.addComponentOrReplace(new utils.MoveTransformComponent(position, position.add(pointPosition), displayTime, () => engine.removeEntity(this)))
     }
 }
 
