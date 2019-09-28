@@ -38,7 +38,7 @@ explainRed.addComponent(new Transform({
   scale: new Vector3(0.5, 0.5, 0.5)
 }))
 explainRed.addComponent(new TextShape(
-  ':2pt'
+  ':Xpt'
 ))
 engine.addEntity(explainRed)
 const greenPhoton = new GreenPhoton(new Vector3(20, 12, 5.5))
