@@ -2,8 +2,8 @@
 import { Literal } from '../sequences/index'
 import utils from "../../node_modules/decentraland-ecs-utils/index"
 
-export class RedPhoton extends Entity  {
-  constructor(position: Vector3, scale: Vector3) {
+export class RedPhoton extends Entity {
+  constructor(position: Vector3, scale = Vector3.One()) {
     super()
     engine.addEntity(this)
     this.addComponent(new Transform({ position: position, scale: scale }))
@@ -19,7 +19,7 @@ export class RedPhoton extends Entity  {
   }
 
   static buildTrigger(): RedPhoton {
-    const redTrigger = new RedPhoton(Position.defaultPhoton, new Vector3(2,2,2))
+    const redTrigger = new RedPhoton(Position.defaultPhoton, new Vector3(2, 2, 2))
     redTrigger.addComponent(
       new OnClick(() => {
         const literal = new Literal(Position.redPhotonBase)
