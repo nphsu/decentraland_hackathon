@@ -9,6 +9,28 @@ import { MoveAction } from "./actions/index"
 
 CreateBaseScene()
 
+const explain = new Entity()
+explain.addComponent(new Transform({
+  position: new Vector3(21, 12, 9.5),
+  scale: new Vector3(0.5, 0.5, 0.5)
+}))
+explain.addComponent(new TextShape(
+  'A Shooting Game starts when you get on the back stage ->'
+))
+engine.addEntity(explain)
+
+const explain2 = new Entity()
+explain2.addComponent(new Transform({
+  position: new Vector3(21, 12, 5.5),
+  rotation: Quaternion.Euler(0, 180, 0),
+  scale: new Vector3(0.5, 0.5, 0.5)
+}))
+explain2.addComponent(new TextShape(
+  'BLUE:1pt       RED:2pt          Green(Hidden):20pt'
+))
+engine.addEntity(explain2)
+
+
 const box1 = new BlackBox(Position.initBox01)
 const box2 = new BlackBox(Position.initBox02)
 const box3 = new WhiteBox(Position.initBox03)
