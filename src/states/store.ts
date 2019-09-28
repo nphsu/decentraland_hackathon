@@ -1,3 +1,5 @@
+import { switchExplation } from "../game";
+
 let score: number = 0
 let records: number[] = new Array()
 let tempEntites: Entity[] = new Array()
@@ -51,8 +53,10 @@ export function hasStartedGame(): boolean {
 export function startGame() {
   score = 0
   hasStarted = true
+  switchExplation(false)
 }
 
 export function finishGame() {
   hasStarted = false
+  switchExplation(true)
 }
