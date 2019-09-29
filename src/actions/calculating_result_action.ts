@@ -2,6 +2,10 @@ import utils from "../../node_modules/decentraland-ecs-utils/index"
 import { ActionsSequenceSystem } from "../../node_modules/decentraland-ecs-utils/actionsSequenceSystem/actionsSequenceSystem";
 import { getScore, saveRecord, getRecords, deleteAllEntities, getTempEntites, finishGame } from "../states/store";
 import { RecordBoardText } from "../components/index";
+import { FireworksSequenceBuilder } from "../sequences/index";
+import { RedPhoton } from "../particles/index";
+import { circle16, dcl } from "../objects/landing";
+import { FireworksSound } from "../components/fireworks_sound";
 
 export class CalculatingResultAction implements ActionsSequenceSystem.IAction {
   hasFinished: boolean = false;
@@ -25,11 +29,31 @@ export class CalculatingResultAction implements ActionsSequenceSystem.IAction {
     if (records.length === 0) {
       // Fireworks
       log('This is a first record!')
+      const fireworksBall = new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1))
+      const startPosition = new Vector3(35, 0, 7.5)
+      const addPosition = new Vector3(0, 20, 0)
+      const bloomDelay = 3
+
+      FireworksSequenceBuilder.build(fireworksBall, circle16.concat(dcl), startPosition, addPosition, bloomDelay)
+        .forEach(each => engine.addSystem(new utils.ActionsSequenceSystem(each)))
+      fireworksBall.addComponent(new utils.Delay(3000, () => {
+        new FireworksSound()
+      }))
     } else {
       const maxScore = getRecords().reduce((a, b) => Math.max(a, b))
       if (maxScore < finalScore) {
         // Fireworks
         log('This is a max record!')
+        const fireworksBall = new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1))
+        const startPosition = new Vector3(35, 0, 7.5)
+        const addPosition = new Vector3(0, 20, 0)
+        const bloomDelay = 3
+
+        FireworksSequenceBuilder.build(fireworksBall, circle16.concat(dcl), startPosition, addPosition, bloomDelay)
+          .forEach(each => engine.addSystem(new utils.ActionsSequenceSystem(each)))
+        fireworksBall.addComponent(new utils.Delay(3000, () => {
+          new FireworksSound()
+        }))
       }
     }
     const recordBoardText = new RecordBoardText()

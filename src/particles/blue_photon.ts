@@ -44,6 +44,7 @@ export class BluePhoton extends Entity {
   static buildBubble(position: Vector3, scoreBoard: ScoreBoard): BluePhoton {
     log('blueBubble build..')
     const blueBubble = new BluePhoton(position)
+    blueBubble.getComponent(Transform).scale = new Vector3(3, 3, 3)
     blueBubble.addComponent(
       new OnClick(() => {
         log('bubble')

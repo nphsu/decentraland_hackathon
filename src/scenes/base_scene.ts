@@ -8,6 +8,7 @@ import { BluePhoton, GreenPhoton, RedPhoton } from "../particles/index"
 import { BlackBox } from "../objects/black_box"
 import { WhiteBox } from "../objects/white_box"
 import { MoveAction, FadeOutAction, ScaleAction } from "../actions/index"
+import { HintExplain } from "../components/hint_explain"
 
 
 export function CreateBaseScene() {
@@ -85,12 +86,15 @@ function createGateBoxes() {
     .endWhile()
   engine.addSystem(new utils.ActionsSequenceSystem(blinkSequence))
 
+  const hintExplain = new HintExplain()
+
   gateTrigger.addComponent(
     new OnClick(() => {
       log('Open the Gate')
       // openGate()
       const sequence = new utils.ActionsSequenceSystem.SequenceBuilder()
         .then(FadeOutAction(gateTrigger, 1, new Vector3(6, 0, 0)))
+        .then(new MoveAction(hintExplain, new Vector3(56, 3, 19), Vector3.Zero()))
         .then(new MoveAction(box1, Position.box01, Vector3.Zero()))
         .then(new MoveAction(box2, Position.box02, Vector3.Zero()))
         .then(new MoveAction(box3, Position.box03, Vector3.Zero()))

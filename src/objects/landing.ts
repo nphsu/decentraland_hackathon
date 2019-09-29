@@ -69,13 +69,15 @@ export class Landing extends Entity {
             const currentPosition = fireworksBall.getComponent(Transform).position
             const point = Math.ceil(addPosition.y - currentPosition.y)
             new Point(point, fireworksBall.getComponent(Transform).position, Quaternion.Euler(0, 270, 0))
-            new FireworksSound()
+            new GunSound()
             scoreBoard.addScore(point)
           })
         )
         FireworksSequenceBuilder.build(fireworksBall, circle16.concat(dcl), startPosition, addPosition, bloomDelay)
           .forEach(each => engine.addSystem(new utils.ActionsSequenceSystem(each)))
-
+        fireworksBall.addComponent(new utils.Delay(20000, () => {
+          new FireworksSound()
+        }))
       },
       (): void => {
         log("xxxxxxxxxxx")
@@ -84,7 +86,7 @@ export class Landing extends Entity {
   }
 }
 
-const circle16 = [
+export const circle16 = [
   new FireworksDot(new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1)), new Vector3(0, 5, 0)),
   new FireworksDot(new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1)), new Vector3(0, 6, 0)),
   new FireworksDot(new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1)), new Vector3(0, 7, 0)),
@@ -129,7 +131,7 @@ const circle16 = [
   new FireworksDot(new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1)), new Vector3(0, 8, 15)),
   new FireworksDot(new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1)), new Vector3(0, 9, 15)),
 ]
-const dcl = [
+export const dcl = [
   // circle left
   new FireworksDot(new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1)), new Vector3(0, 12, 4)),
   new FireworksDot(new RedPhoton(Vector3.Zero(), new Vector3(1, 1, 1)), new Vector3(0, 11, 4)),
