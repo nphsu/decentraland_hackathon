@@ -32,10 +32,6 @@ export class Landing extends Entity {
       null,
       null,
       (): void => {
-        // const blueTrigger = BluePhoton.buildTrigger()
-        // const redTrigger = RedPhoton.buildTrigger()
-        // const greenPhoton = GreenPhoton.buildInitArray(15)
-        // const greenTrigger = new GreenPhoton(Position.defaultPhoton)
         if (hasStartedGame()) {
           return
         }
@@ -52,25 +48,13 @@ export class Landing extends Entity {
           .then(new CalculatingResultAction(this, position, Vector3.Zero(), 10))
         engine.addSystem(new utils.ActionsSequenceSystem(sequence))
 
-        // if it is a new record, then the fireworks will start
-
-        // const redPhotons = RedPhoton.buildInitArray(15)
-        // const firework = new utils.ActionsSequenceSystem.SequenceBuilder()
-        //   .then(new MoveSlowAction(redPhotons[0], new Vector3(35, 15, 5.5), redTrigger.getComponent(Transform).position))
-        //   .then(new MoveSlowAction(redPhotons[1], new Vector3(35, 16, 6.5), redTrigger.getComponent(Transform).position))
-        //   .then(new MoveSlowAction(redPhotons[2], new Vector3(35, 17, 5.5), redTrigger.getComponent(Transform).position))
-        //   .then(new MoveSlowAction(redPhotons[3], new Vector3(35, 18, 6.5), redTrigger.getComponent(Transform).position))
-        //   .then(new MoveSlowAction(redPhotons[4], new Vector3(35, 19, 5.5), redTrigger.getComponent(Transform).position))
-        //   .then(new MoveSlowAction(redPhotons[5], new Vector3(35, 20, 6.5), redTrigger.getComponent(Transform).position))
-        // engine.addSystem(new utils.ActionsSequenceSystem(firework))
-
         const hiddenPhoton = new GreenPhoton(new Vector3(0, -1.5, 0))
         hiddenPhoton.setParent(this)
         hiddenPhoton.addComponent(
           new OnClick(() => {
             new GunSound()
             const currentPosition = this.getComponent(Transform).position.add(hiddenPhoton.getComponent(Transform).position)
-            const point = new Point(20, currentPosition, Quaternion.Euler(0, 90, 0), new Vector3(0, -1, 0))
+            const point = new Point(50, currentPosition, Quaternion.Euler(0, 90, 0), new Vector3(0, -1, 0))
             scoreBoard.addScore(point.point)
             engine.removeEntity(hiddenPhoton)
           })
@@ -92,22 +76,6 @@ export class Landing extends Entity {
         FireworksSequenceBuilder.build(fireworksBall, circle16.concat(dcl), startPosition, addPosition, bloomDelay)
           .forEach(each => engine.addSystem(new utils.ActionsSequenceSystem(each)))
 
-        // const redTrigger = new RedPhoton(redBase)
-        // redTrigger.addComponent(
-        //   new OnClick(() => {
-        //     const literal = new Literal(redBase)
-        //     const sequence = literal.buildDECEN(redPhoton)
-        //     engine.addSystem(new utils.ActionsSequenceSystem(sequence))        
-        //   })
-        // )
-        // const greenTrigger = new GreenPhoton(greenBase)
-        // greenTrigger.addComponent(
-        //   new OnClick(() => {
-        //     const literal = new Literal(greenBase)
-        //     const sequence = literal.buildAFrom(greenPhoton)
-        //     engine.addSystem(new utils.ActionsSequenceSystem(sequence))
-        //   })
-        // )
       },
       (): void => {
         log("xxxxxxxxxxx")

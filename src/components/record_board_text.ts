@@ -17,6 +17,12 @@ export class RecordBoardText extends Entity {
 
   saveRecord(score: number): void {
     // TODO: if the size of the array exceeds 3, then removing
+    const oldRecords = getRecords()
+    if (oldRecords.length >= 3) {
+      const min = Math.min(...oldRecords)
+      const index = oldRecords.indexOf(min)
+      oldRecords.splice(index, 1)
+    }
     saveRecord(score)
     this.refresh()
     log('SAVE RECORD')

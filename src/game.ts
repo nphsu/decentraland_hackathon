@@ -49,7 +49,7 @@ explainGreen.addComponent(new Transform({
   scale: new Vector3(0.5, 0.5, 0.5)
 }))
 explainGreen.addComponent(new TextShape(
-  '(Hidden):20pt'
+  '(Hidden):50pt'
 ))
 engine.addEntity(explainGreen)
 
