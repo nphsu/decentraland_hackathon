@@ -9,7 +9,7 @@ export class FollowAction implements ActionsSequenceSystem.IAction {
   scoreBoard: ScoreBoard
   entity: Entity
   position: Vector3
-  limitTimeSec: number = 30
+  limitTimeSec: number = 40
   currentTimeSec: number = 0
   bubbles: BluePhoton[]
 
@@ -46,7 +46,7 @@ export class FollowAction implements ActionsSequenceSystem.IAction {
     // path[17] = new Vector3(x, y+10, z)
     this.entity.addComponent(new utils.FollowPathComponent(path, this.limitTimeSec))
 
-    this.entity.addComponent(new utils.Interval(1000, () => {
+    this.entity.addComponent(new utils.Interval(2000, () => {
       if (this.limitTimeSec < this.currentTimeSec) {
         log('remove all')
         this.entity.removeComponent(utils.Interval)
@@ -59,7 +59,7 @@ export class FollowAction implements ActionsSequenceSystem.IAction {
       let rndZ: number = Math.floor(Math.random() * 15)
       const bubble = BluePhoton.buildBubble(new Vector3(rndX, rndY, rndZ), this.scoreBoard)
       this.bubbles.push(bubble)
-      this.currentTimeSec++
+      this.currentTimeSec += 2
     }))
   }
   //Method to run on every frame
